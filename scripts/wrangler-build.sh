@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [ "${HALOPRESS_SKIP_WRANGLER_BUILD:-}" = "1" ]; then
+  echo "Skipping Wrangler build hook because HALOPRESS_SKIP_WRANGLER_BUILD=1."
+  exit 0
+fi
+
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$ROOT_DIR"
+
+echo "Building Nuxt output for Cloudflare Workers..."
+pnpm build
